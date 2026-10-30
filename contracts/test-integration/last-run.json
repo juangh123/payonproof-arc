@@ -1,0 +1,134 @@
+{
+  "contract": "0x08617a0786fa9c5c380f8cc8e6366ac91d16d851",
+  "jobs": {
+    "A": "2",
+    "B": "1"
+  },
+  "txs": [
+    {
+      "flow": "B",
+      "step": "createJob",
+      "hash": "0x41230e4502c9eaace6320faa6b1e05f27339f7318b61ebd3912603e3bbe8c0c0"
+    },
+    {
+      "flow": "B",
+      "step": "setBudget",
+      "hash": "0xfa92383826dd14c9b6dda8602a5275d005bd76d8cd7e599df887275e6d924329"
+    },
+    {
+      "flow": "B",
+      "step": "approve",
+      "hash": "0xcb13b6cfcb16aa1d04bd359872374a30291211c6454d54fa9852b24009d8abc6"
+    },
+    {
+      "flow": "B",
+      "step": "fund",
+      "hash": "0xe4438540019ac427a462fcbee48fd6e2c91c457e6f91388a0340dbe1ff09057b"
+    },
+    {
+      "flow": "A",
+      "step": "createJob",
+      "hash": "0x6c730226426407ad75ed0e8adc8ee22f7daed53a94d8c8677f46aa31fb196dc1"
+    },
+    {
+      "flow": "A",
+      "step": "setBudget",
+      "hash": "0x00f0e6ada87dcbda2e4742fecef2b5a56c776114fdaebb0cdfe2e7284a5d0046"
+    },
+    {
+      "flow": "A",
+      "step": "approve",
+      "hash": "0x5dcbc5cb81d3c2faf14cba307a668833fc6e14f2f7bc60dba51a963dd762dd26"
+    },
+    {
+      "flow": "A",
+      "step": "fund",
+      "hash": "0xe66e2152f08d91fbf447e1e38319b266db8217229323d299c331781aff1d4a00"
+    },
+    {
+      "flow": "A",
+      "step": "submit",
+      "hash": "0x4f7851ca9d34f9e083b9d797b9f1b817707e3f64ebad201b0ab5c0887d541454"
+    },
+    {
+      "flow": "A",
+      "step": "complete",
+      "hash": "0x0bb8491d044b80be2fc48b070ddd157a12d8651b49d937b9399e0cbd00cb8996"
+    },
+    {
+      "flow": "B",
+      "step": "claimRefund (sent by provider)",
+      "hash": "0xbb08b51132fe1281f80f391bd53f702af47b8af86fe5c0c02168339c1771656c"
+    }
+  ],
+  "results": [
+    {
+      "check": "wallets are distinct",
+      "pass": true
+    },
+    {
+      "check": "both wallets funded",
+      "pass": true,
+      "detail": "20000000 / 20000000"
+    },
+    {
+      "check": "B: allowance equals the exact budget",
+      "pass": true,
+      "detail": "500000"
+    },
+    {
+      "check": "B: job #1 is Funded with the budget",
+      "pass": true
+    },
+    {
+      "check": "A: allowance equals the exact budget",
+      "pass": true,
+      "detail": "1000000"
+    },
+    {
+      "check": "A: job #2 is Funded with the budget",
+      "pass": true
+    },
+    {
+      "check": "A: stored deliverable hash equals the submitted keccak256",
+      "pass": true
+    },
+    {
+      "check": "A: job is Submitted",
+      "pass": true
+    },
+    {
+      "check": "A: provider received exactly 1 USDC",
+      "pass": true,
+      "detail": "delta 1000000"
+    },
+    {
+      "check": "A: job is Completed",
+      "pass": true
+    },
+    {
+      "check": "B: claimRefund reverts before expiry",
+      "pass": true
+    },
+    {
+      "check": "B: client got exactly 0.5 USDC back",
+      "pass": true,
+      "detail": "delta 500000"
+    },
+    {
+      "check": "B: job is Expired",
+      "pass": true
+    },
+    {
+      "check": "B: refund call was made by the provider wallet",
+      "pass": true,
+      "detail": "0x5c30f9f3dD56f25Ae703f4c2fe4B817AA772E8cA"
+    },
+    {
+      "check": "totalEscrowed returned to its starting value",
+      "pass": true,
+      "detail": "0 -> 0"
+    }
+  ],
+  "allPassed": true
+}

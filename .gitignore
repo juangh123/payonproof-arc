@@ -1,0 +1,29 @@
+# dependencies and build output
+node_modules
+dist
+*.tsbuildinfo
+
+# foundry (src/generated/PayOnProofJobs.json is the committed artifact)
+contracts/out
+contracts/cache
+contracts/broadcast
+cache
+broadcast
+
+# secrets and local config
+.env
+.env.local
+.env.*.local
+.circle
+recovery_file*
+*.pem
+*.key
+
+# local tooling and logs
+console.jsonl
+traces.jsonl
+.agents
+.DS_Store
+
+# deployment metadata written by the Studio deploy tool (internal wallet ids)
+contracts/contract-metadata
