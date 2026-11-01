@@ -13,7 +13,7 @@ Built with Arc Studio - https://studio.arc.io
 ## Deployments
 
 - Arc Testnet: `0x08617a0786fa9c5c380f8cc8e6366ac91d16d851`, block 69776195, tx `0xff43c1b3877ade2fa68e757415ff6146db98c173828223992d359c871924bb4c`. paymentToken `0x3600000000000000000000000000000000000000`, maxBudget `100000000`.
-- Arc mainnet: not deployed (see README, "Live on Arc mainnet").
+- Arc mainnet: `0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c`, block 28825889, tx `0x71af7d6ce5bead104a6163f78c32ca4e3b6a249edebc1eb26f7c936cab73a243`. paymentToken `0x3600000000000000000000000000000000000000`, maxBudget `100000000`. Live app https://payonproof-arc.vercel.app. Source verified on explorer.arc.io.
 
 ## Rules
 

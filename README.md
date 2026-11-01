@@ -1,3 +1,7 @@
+- Live app: [https://payonproof-arc.vercel.app](https://payonproof-arc.vercel.app)
+- Verified mainnet contract: [0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c](https://explorer.arc.io/address/0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c?tab=contract)
+- Example transaction (Job #2 `complete`, 0.5 USDC paid to the provider): [0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af](https://explorer.arc.io/tx/0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af)
+
 # PayOnProof
 
 Pay for work only when proof of delivery arrives.
@@ -119,18 +123,54 @@ To deploy with Foundry instead, see `contracts/script/Deploy.s.sol` below.
 
 ## Live on Arc mainnet
 
-> **TBD. Not deployed yet.** The project owner will fill these in after deploying from their own wallet.
+PayOnProofJobs is live on Arc mainnet (chain 5042). The project owner deployed it from their own wallet through the `/deploy` page, and two real jobs ran between two separate wallets. The contract has had **no third-party audit**: use small amounts only.
 
 | | |
 | --- | --- |
 | Network | Arc (chain 5042) |
-| Contract | TBD |
-| Deployment transaction | TBD |
-| Deployment block | TBD |
-| `maxBudget` | TBD |
-| Deployer | TBD |
-| Live app | TBD |
+| Live app | [https://payonproof-arc.vercel.app](https://payonproof-arc.vercel.app) (Vercel, built from this repository with `VITE_CHAIN=mainnet`) |
+| Contract | [`0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c`](https://explorer.arc.io/address/0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c) |
+| Source verification | Verified, exact match, on [explorer.arc.io](https://explorer.arc.io/address/0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c?tab=contract) |
+| Deployment transaction | [`0x71af7d6ce5bead104a6163f78c32ca4e3b6a249edebc1eb26f7c936cab73a243`](https://explorer.arc.io/tx/0x71af7d6ce5bead104a6163f78c32ca4e3b6a249edebc1eb26f7c936cab73a243) |
+| Deployment block | 28825889 |
+| Payment token | [`0x3600000000000000000000000000000000000000`](https://explorer.arc.io/address/0x3600000000000000000000000000000000000000) (Arc USDC ERC-20 interface, 6 decimals) |
+| `maxBudget` | `100000000` (100 USDC per job) |
+| Deployer | The project owner's own wallet, through `/deploy` |
 | Independent audit | None yet |
+
+The deployed bytecode is the committed `src/generated/PayOnProofJobs.json` export (creation bytecode keccak256 `0x30a214c9e14ad02801042e4d928ce7d18279fe5609e4261610f8816e55859298`).
+
+### Wallets used for the live jobs
+
+| Role | Address |
+| --- | --- |
+| Client and evaluator | [`0x57b197d9ad7f87047b28f633ee02ad39d302eda6`](https://explorer.arc.io/address/0x57b197d9ad7f87047b28f633ee02ad39d302eda6) |
+| Provider | [`0x91a5a5397d9bdce14b19a8bfdbfdf80f4d0dfd16`](https://explorer.arc.io/address/0x91a5a5397d9bdce14b19a8bfdbfdf80f4d0dfd16) |
+
+### Job #2: delivered and paid, 0.5 USDC
+
+The provider submitted the delivery hash `0xab56cb4da02c962a07b5e8d651949a9a8f812597093ac61f1e51dfeba007b3db` and the evaluator completed the job.
+
+| Step | Transaction |
+| --- | --- |
+| createJob | [`0x860b45351a403fc641dfeddbb4e9eced8621b19cb5af2a5464b8800c6685d451`](https://explorer.arc.io/tx/0x860b45351a403fc641dfeddbb4e9eced8621b19cb5af2a5464b8800c6685d451) |
+| setBudget | [`0x90255b66f59774d3af450855a576cd8553080a26cb1541fad46de5f545833d38`](https://explorer.arc.io/tx/0x90255b66f59774d3af450855a576cd8553080a26cb1541fad46de5f545833d38) |
+| fund (0.5 USDC, client to contract) | [`0xdaf383122217f3acab0eee8df8fc8952e6bff9adb3edaf8b6ff3074ebbd6935b`](https://explorer.arc.io/tx/0xdaf383122217f3acab0eee8df8fc8952e6bff9adb3edaf8b6ff3074ebbd6935b) |
+| submit (by the provider) | [`0x32ffdfbd338053aceae35ad6cfc7de747d9b62c36ba0cbe2a7fbe3e0738987a7`](https://explorer.arc.io/tx/0x32ffdfbd338053aceae35ad6cfc7de747d9b62c36ba0cbe2a7fbe3e0738987a7) |
+| complete (by the evaluator, 0.5 USDC contract to provider) | [`0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af`](https://explorer.arc.io/tx/0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af) |
+
+### Job #1: expired and refunded, 0.25 USDC
+
+Nobody settled the job before it expired, so the provider wallet called `claimRefund` and the escrow went back to the client.
+
+| Step | Transaction |
+| --- | --- |
+| createJob | [`0x9268f4d9bacf9b7cb9890c8bb5e729020f34be21904070148c1e6d72d329c131`](https://explorer.arc.io/tx/0x9268f4d9bacf9b7cb9890c8bb5e729020f34be21904070148c1e6d72d329c131) |
+| setBudget | [`0xfeb33d4b88b61362bf672f9e08bc3adb83d92f9ccb17f5956e22be156c12d487`](https://explorer.arc.io/tx/0xfeb33d4b88b61362bf672f9e08bc3adb83d92f9ccb17f5956e22be156c12d487) |
+| fund (0.25 USDC, client to contract) | [`0x7641f85e77b79bbd74d2adab9823d58792f0878afc9373a41d731a1f6e553027`](https://explorer.arc.io/tx/0x7641f85e77b79bbd74d2adab9823d58792f0878afc9373a41d731a1f6e553027) |
+| claimRefund (called by the provider wallet after expiry, 0.25 USDC contract to client) | [`0x76624e121cda11e576775d76fb9b2c3392da3f78e5869420cbd93f21b5d90d2b`](https://explorer.arc.io/tx/0x76624e121cda11e576775d76fb9b2c3392da3f78e5869420cbd93f21b5d90d2b) |
+
+After both jobs `totalEscrowed()` is 0, so nothing is left in escrow.
 
 ## Contract reference
 
