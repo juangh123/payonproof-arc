@@ -1,5 +1,6 @@
 - Live app: [https://payonproof-arc.vercel.app](https://payonproof-arc.vercel.app)
 - Verified mainnet contract: [0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c](https://explorer.arc.io/address/0xc861063ec9b10cc14cb623ac9efb67e514ec0d7c?tab=contract)
+- Demo video (1:52): [https://payonproof-arc.vercel.app/payonproof-demo.mp4](https://payonproof-arc.vercel.app/payonproof-demo.mp4) (also in [`public/payonproof-demo.mp4`](public/payonproof-demo.mp4))
 - Example transaction (Job #2 `complete`, 0.5 USDC paid to the provider): [0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af](https://explorer.arc.io/tx/0x751fd7c32f50f56cd95d85ff0074ff323105fe5dafc87e0145785c56b06599af)
 
 # PayOnProof
